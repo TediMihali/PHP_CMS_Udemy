@@ -42,9 +42,15 @@ class User
 
     public static function find_user_by_id($id)
     {
-        $result_set = self::find_this_query("Select * from users where id=$id limit 1");
-        $found_user = mysqli_fetch_array($result_set);
-        return $found_user;
+        $the_result_array = self::find_this_query("Select * from users where id=$id limit 1");
+
+        if(!empty($the_result_array))
+        {
+            $first_item = array_shift($the_result_array);
+            return $first_item;
+        }
+
+        return false;
     }
 
     static function find_this_query($sql)
